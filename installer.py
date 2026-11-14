@@ -17,7 +17,7 @@ from pykotor.resource.type import ResourceType
 from pykotor.common.misc import Game,ResRef
 from pykotor.common.language import LocalizedString,Language
 
-VERSION='0.1.0-test'
+VERSION='0.1.1-test'
 MARKER='ShadowLordRising-install.json'
 class InstallError(RuntimeError):pass
 def digest(data):return hashlib.sha256(data).hexdigest()
@@ -162,6 +162,17 @@ class Installer:
     p=ci(self.override,name)
     if p.exists() and digest(p.read_bytes())!=digest((self.payload/'assets'/ci(self.payload/'assets',name).name).read_bytes()):raise InstallError('Weapon model slot conflict: '+name)
   self.report.update(head_rows=self.headids,donor_appearances=self.donors,allowed_appearances=self.allowed,portrait_row=portrait_matches[0])
+ def crafting(self):
+  if not self.full:return
+  recipe=self.spec['veteran_crafting']
+  for name in ['itemcreate','itemcreatemira']:
+   table=self.table(name)
+   matches=[row for row in table if row.get_string('label').lower()==recipe['template']]
+   if matches:raise InstallError('Veteran wraps recipe already exists in '+name+'; resolve the existing recipe before installing.')
+   data={'label':recipe['template'],'skill':str(recipe['skill']),'group':str(recipe['group']),'level':str(recipe['level']),'align':str(recipe['align']),'base_skill':str(recipe['base_skill']),'dunno':'0','overridetag':'****'}
+   self.append(table,data)
+   self.queue(self.override/(name+'.2da'),bytes_2da(table))
+  self.report['veteran_crafting']=recipe
  def runtime(self):
   allowed=' || '.join('appearance == '+str(i) for i in self.allowed)
   select='int headAppearance = '+str(self.donors[0])+';\n'+''.join('if (stage == '+str(i)+') headAppearance = '+str(self.donors[i])+';\n' for i in range(1,7))
@@ -316,7 +327,7 @@ ExecuteScript("slr_sync",OBJECT_SELF); DelayCommand(2.0,ExecuteScript("slr_tick"
   self.queue(self.game/'dialog.tlk',bytes_tlk(tlk))
  def plan(self):
   print('Checking game and package...',flush=True);tlk=self.preflight()
-  print('Preparing Maul and alignment progression...',flush=True);self.tables_and_assets();self.runtime()
+  print('Preparing Maul and alignment progression...',flush=True);self.tables_and_assets();self.crafting();self.runtime()
   print('Merging campaign modules. This may take a few minutes...',flush=True);self.patch_modules();self.dialogue(tlk)
   self.report['files_changed']=len(self.pending);self.report['in_game_verified']=False
   return self.report

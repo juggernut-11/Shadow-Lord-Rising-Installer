@@ -1,0 +1,43 @@
+{
+  "version": "0.1.1-test",
+  "installer_source_sha256": "587f1a1819399cc30cbd14f412906bdbeadc41a5cd4b75ac92a72c1f40eee67c",
+  "dependency_sources_zip_sha256": "2c106f09d50500d1134c31b58ce9923dff765f86c5b897813b03382081439be2",
+  "uploaded_setup_exe_sha256": "c4fa8d58f4f5713d21c7246f931f41c3955509a2757fa248ab65d5a169a01d11",
+  "build_python": "3.12.11 x64",
+  "build_pyinstaller": "6.22.3",
+  "UPX_used": false,
+  "release_archives": [
+    {
+      "file": "Shadow-Lord-Rising-Full-0.1.1-test-20261114.zip",
+      "sha256": "022963dfdcb497d2ae657849927120926ca31679829596b19cc1027975f365af",
+      "bytes": 55407081,
+      "archive_crc_and_every_entry_hash_verified": true,
+      "edition": "Full",
+      "variant": "Windows"
+    },
+    {
+      "file": "Shadow-Lord-Rising-Full-0.1.1-test-Python-Installer-20261114.zip",
+      "sha256": "c3da827fa706e3401cc087c094dd0bb072367d0c0c0ac61f7e386ff637aa0af9",
+      "bytes": 40528895,
+      "archive_crc_and_every_entry_hash_verified": true,
+      "edition": "Full",
+      "variant": "Python"
+    },
+    {
+      "file": "Shadow-Lord-Rising-Maul-Progression-0.1.1-test-20261114.zip",
+      "sha256": "16400589fa99e1d5bb6fa379b5f06adb504a83bd5be5c6bdc9ff528987526c03",
+      "bytes": 38520927,
+      "archive_crc_and_every_entry_hash_verified": true,
+      "edition": "Maul-Progression",
+      "variant": "Windows"
+    },
+    {
+      "file": "Shadow-Lord-Rising-Maul-Progression-0.1.1-test-Python-Installer-20261114.zip",
+      "sha256": "12e78b1b998427b481b8b6c2d743529d7ce2494081c6591670c1b68f157a2205",
+      "bytes": 23641963,
+      "archive_crc_and_every_entry_hash_verified": true,
+      "edition": "Maul-Progression",
+      "variant": "Python"
+    }
+  ]
+}
